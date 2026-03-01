@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clear Ahead — Competitive Landscape</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5EFE6;
+    --warm: #FAF7F2;
+    --peach: #E8C5A0;
+    --blush: #D4A08A;
+    --terra: #B87060;
+    --amber: #C49060;
+    --muted: #9A8878;
+    --dark: #2C2420;
+    --soft: #4A3C34;
+    --border: rgba(232,197,160,0.35);
+    --border-strong: rgba(184,112,96,0.25);
+    --threat-bg: rgba(184,112,96,0.06);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--warm);
+    color: var(--dark);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    padding: 52px 24px 80px;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.5;
+  }
+
+  .page { max-width: 1100px; margin: 0 auto; }
+
+  /* ── HEADER ── */
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: rise 0.8s ease forwards 0.1s;
+  }
+  .eyebrow {
+    font-size: 9.5px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--terra);
+    margin-bottom: 14px;
+  }
+  .title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4.2vw, 50px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--dark);
+  }
+  .title em { font-style: italic; color: var(--terra); }
+  .subtitle {
+    margin-top: 13px;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ── FILTER TABS ── */
+  .filters {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: rise 0.8s ease forwards 0.2s;
+  }
+  .filter-btn {
+    padding: 6px 15px;
+    border: 1px solid var(--border-strong);
+    border-radius: 2px;
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9.5px;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--terra);
+    border-color: var(--terra);
+    color: var(--warm);
+  }
+
+  /* ── MATRIX ── */
+  .matrix-wrap {
+    position: relative;
+    opacity: 0;
+    animation: rise 0.8s ease forwards 0.35s;
+  }
+  .matrix {
+    position: relative;
+    width: 100%;
+    padding-bottom: 76%;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .matrix::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 25% 25%;
+    opacity: 0.3;
+  }
+
+  /* Axes */
+  .axis-h { position: absolute; top: 50%; left: 3%; right: 3%; height: 1px; background: var(--peach); transform: translateY(-50%); }
+  .axis-v { position: absolute; left: 50%; top: 3%; bottom: 3%; width: 1px; background: var(--peach); transform: translateX(-50%); }
+  .tip { position: absolute; width: 0; height: 0; border-style: solid; }
+  .tip.top { top: 2.5%; left: 50%; transform: translateX(-50%); border-width: 0 4px 7px; border-color: transparent transparent var(--peach) transparent; }
+  .tip.bot { bottom: 2.5%; left: 50%; transform: translateX(-50%); border-width: 7px 4px 0; border-color: var(--peach) transparent transparent; }
+  .tip.lft { left: 2.5%; top: 50%; transform: translateY(-50%); border-width: 4px 7px 4px 0; border-color: transparent var(--peach) transparent transparent; }
+  .tip.rgt { right: 2.5%; top: 50%; transform: translateY(-50%); border-width: 4px 0 4px 7px; border-color: transparent transparent transparent var(--peach); }
+
+  .al {
+    position: absolute;
+    font-size: 8.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  .al.top { top: 1.5%; left: 50%; transform: translateX(-50%); }
+  .al.bot { bottom: 1.5%; left: 50%; transform: translateX(-50%); }
+  .al.lft { left: 0.8%; top: 50%; transform: translateY(-50%) rotate(-90deg); }
+  .al.rgt { right: 0.5%; top: 50%; transform: translateY(-50%) rotate(90deg); }
+
+  .ql {
+    position: absolute;
+    font-size: 7px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(154,136,120,0.32);
+    line-height: 1.5;
+    pointer-events: none;
+  }
+  .ql.tl { top: 5%; left: 4%; }
+  .ql.tr { top: 5%; right: 4%; text-align: right; }
+  .ql.bl { bottom: 5%; left: 4%; }
+  .ql.br { bottom: 5%; right: 4%; text-align: right; }
+
+  /* Platform halos */
+  .platform-halo {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(154,136,120,0.05) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Contested zone */
+  .gap-zone {
+    position: absolute;
+    top: 3%;
+    left: 36%;
+    right: 36%;
+    height: 30%;
+    background: rgba(184,112,96,0.03);
+    border-left: 1px dashed rgba(184,112,96,0.18);
+    border-right: 1px dashed rgba(184,112,96,0.18);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .gap-label {
+    position: absolute;
+    top: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 7px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(184,112,96,0.4);
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* ── DOTS ── */
+  .dot {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 10;
+    transition: opacity 0.25s;
+  }
+  .dot.hidden { opacity: 0 !important; pointer-events: none; }
+  .dot-core {
+    border-radius: 50%;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .dot:hover .dot-core { transform: scale(1.38); }
+
+  /* Threat ring — replaces arrows */
+  .dot.threat .dot-core::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(184,112,96,0.32);
+    pointer-events: none;
+  }
+
+  /* Tier colours */
+  .dot[data-tier="platform"] .dot-core { background: transparent; border: 1.5px dashed rgba(154,136,120,0.28); }
+  .dot[data-tier="1"] .dot-core { background: var(--soft); opacity: 0.72; }
+  .dot[data-tier="2"] .dot-core { background: var(--blush); opacity: 0.62; }
+  .dot[data-tier="3"] .dot-core { background: var(--amber); opacity: 0.55; }
+  .dot[data-tier="4"] .dot-core { background: var(--muted); opacity: 0.42; }
+  .dot[data-tier="5"] .dot-core { background: var(--peach); border: 1px dashed var(--blush); opacity: 0.5; }
+  .dot.yours .dot-core {
+    background: var(--terra) !important;
+    opacity: 1 !important;
+    box-shadow: 0 0 0 5px rgba(184,112,96,0.12), 0 0 22px rgba(184,112,96,0.18);
+    animation: pulse 2.8s ease infinite;
+  }
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 0 0 5px rgba(184,112,96,0.12), 0 0 22px rgba(184,112,96,0.18); }
+    50% { box-shadow: 0 0 0 9px rgba(184,112,96,0.06), 0 0 28px rgba(184,112,96,0.22); }
+  }
+
+  .dot-label {
+    position: absolute;
+    white-space: nowrap;
+    pointer-events: none;
+    font-size: 9px;
+    font-weight: 300;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+  .dot:hover .dot-label { color: var(--soft); }
+  .dot.yours .dot-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--terra);
+    font-weight: 400;
+  }
+
+  /* ── TOOLTIP ── */
+  .tooltip {
+    position: fixed;
+    background: var(--cream);
+    border: 1px solid var(--border-strong);
+    border-radius: 2px;
+    padding: 14px 16px;
+    max-width: 260px;
+    font-size: 11px;
+    line-height: 1.65;
+    color: var(--soft);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.13s;
+    z-index: 500;
+    box-shadow: 0 6px 24px rgba(44,36,32,0.08);
+  }
+  .tooltip.show { opacity: 1; }
+  .tt-name {
+    font-size: 9.5px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--terra);
+    margin-bottom: 6px;
+    font-weight: 400;
+  }
+  .tt-gap {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border-strong);
+    font-size: 10.5px;
+    font-style: italic;
+    color: var(--terra);
+    line-height: 1.6;
+  }
+  .tt-stat {
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid var(--border);
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-top: 22px;
+    opacity: 0;
+    animation: rise 0.8s ease forwards 0.5s;
+  }
+  .legend-section { display: flex; flex-direction: column; gap: 7px; }
+  .legend-title {
+    font-size: 8px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .legend-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 300;
+    color: var(--soft);
+  }
+  .l-dot { border-radius: 50%; flex-shrink: 0; }
+  .l-div { width: 1px; height: 56px; background: var(--border); align-self: center; }
+  .threat-key {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    font-weight: 300;
+    color: var(--soft);
+    padding: 9px 13px;
+    background: var(--threat-bg);
+    border: 1px solid rgba(184,112,96,0.15);
+    border-radius: 2px;
+    align-self: flex-start;
+    margin-top: 4px;
+  }
+  .threat-ring-demo {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--blush);
+    opacity: 0.65;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 3px rgba(184,112,96,0.3);
+  }
+
+  /* ── THREAT CARDS ── */
+  .threat-section {
+    margin-top: 36px;
+    opacity: 0;
+    animation: rise 0.8s ease forwards 0.6s;
+  }
+  .threat-section-title {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .threat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+  }
+  .threat-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    padding: 18px 20px;
+    position: relative;
+  }
+  .threat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--border-strong);
+  }
+  .threat-card.high::before { background: var(--terra); }
+  .threat-card.medium::before { background: var(--blush); }
+  .threat-card.low::before { background: var(--peach); }
+
+  .tc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    gap: 10px;
+  }
+  .tc-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--dark);
+    line-height: 1.2;
+  }
+  .tc-level {
+    font-size: 8.5px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 1px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .threat-card.high .tc-level { background: rgba(184,112,96,0.1); color: var(--terra); }
+  .threat-card.medium .tc-level { background: rgba(212,160,138,0.12); color: var(--blush); }
+  .threat-card.low .tc-level { background: rgba(154,136,120,0.1); color: var(--muted); }
+
+  .tc-gap-distance {
+    font-size: 10.5px;
+    font-weight: 300;
+    color: var(--soft);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .tc-signals {
+    font-size: 10px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.6;
+    border-top: 1px solid var(--border);
+    padding-top: 8px;
+    margin-top: 4px;
+  }
+  .tc-signals strong {
+    display: block;
+    font-size: 8.5px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--terra);
+    margin-bottom: 4px;
+    font-weight: 400;
+  }
+  .tc-verdict {
+    font-size: 10.5px;
+    font-style: italic;
+    color: var(--soft);
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border);
+    line-height: 1.6;
+  }
+
+  /* ── LINKS ── */
+  .links-section {
+    margin-top: 44px;
+    opacity: 0;
+    animation: rise 0.8s ease forwards 0.75s;
+  }
+  .links-title {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .links-group {
+    margin-bottom: 24px;
+  }
+  .links-group-label {
+    font-size: 8.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--terra);
+    margin-bottom: 10px;
+    font-weight: 300;
+  }
+  .links-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .company-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    font-size: 10.5px;
+    font-weight: 300;
+    color: var(--soft);
+    text-decoration: none;
+    transition: all 0.18s;
+  }
+  .company-link:hover {
+    border-color: var(--terra);
+    color: var(--terra);
+    background: rgba(184,112,96,0.04);
+  }
+  .company-link .link-arrow {
+    font-size: 10px;
+    opacity: 0.5;
+    transition: opacity 0.18s, transform 0.18s;
+  }
+  .company-link:hover .link-arrow {
+    opacity: 1;
+    transform: translate(2px, -2px);
+  }
+  .company-link.threat-co {
+    border-color: rgba(184,112,96,0.3);
+  }
+  .company-link.yours-co {
+    border-color: var(--terra);
+    background: rgba(184,112,96,0.05);
+    color: var(--terra);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 12px;
+  }
+
+  /* ── STAT ROW ── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    margin-top: 28px;
+    border: 1px solid var(--border);
+    opacity: 0;
+    animation: rise 0.8s ease forwards 0.65s;
+  }
+  .stat-cell {
+    padding: 18px 20px;
+    background: var(--cream);
+    border-right: 1px solid var(--border);
+  }
+  .stat-cell:last-child { border-right: none; }
+  .stat-n {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 300;
+    color: var(--terra);
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+  .stat-l {
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .stat-d {
+    font-size: 10.5px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--soft);
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (max-width: 700px) {
+    .stat-row { grid-template-columns: 1fr 1fr; }
+    .threat-grid { grid-template-columns: 1fr; }
+    .al.lft, .al.rgt { display: none; }
+  }
+  @media (max-width: 480px) {
+    .stat-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="eyebrow">Realistic competitive landscape · March 2026</div>
+    <h1 class="title">First mover in a<br><em>contested gap.</em></h1>
+    <p class="subtitle">30+ companies mapped. The gap is real today. Several companies have the data, users, and resources to close it — the question is whether they have the incentive.</p>
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="productivity">Productivity</button>
+    <button class="filter-btn" data-filter="wearable">Wearables</button>
+    <button class="filter-btn" data-filter="enterprise">Enterprise</button>
+    <button class="filter-btn" data-filter="platform">Platforms</button>
+    <button class="filter-btn" data-filter="threat">Threats only</button>
+  </div>
+
+  <div class="matrix-wrap">
+    <div class="matrix" id="matrix">
+      <div class="platform-halo" style="width:22%;height:28%;left:41%;top:37%;"></div>
+      <div class="platform-halo" style="width:19%;height:24%;left:5%;top:41%;"></div>
+      <div class="platform-halo" style="width:19%;height:24%;left:67%;top:34%;"></div>
+      <div class="gap-zone"></div>
+      <div class="gap-label">first mover · contested</div>
+      <div class="axis-h"></div>
+      <div class="axis-v"></div>
+      <div class="tip top"></div><div class="tip bot"></div>
+      <div class="tip lft"></div><div class="tip rgt"></div>
+      <div class="al top">Predictive · forward-looking</div>
+      <div class="al bot">Retrospective · backward-looking</div>
+      <div class="al lft">Work &amp; schedule</div>
+      <div class="al rgt">Body &amp; capacity</div>
+      <div class="ql tl">Predictive<br>+ Work</div>
+      <div class="ql tr">Predictive<br>+ Body</div>
+      <div class="ql bl">Reactive<br>+ Work</div>
+      <div class="ql br">Reactive<br>+ Body</div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-section">
+      <div class="legend-title">Tier</div>
+      <div class="legend-row"><div class="l-dot" style="width:10px;height:10px;background:var(--soft);opacity:0.72"></div> Tier 1 — Well-funded adjacents</div>
+      <div class="legend-row"><div class="l-dot" style="width:10px;height:10px;background:var(--blush);opacity:0.62"></div> Tier 2 — Same user, smaller scale</div>
+      <div class="legend-row"><div class="l-dot" style="width:10px;height:10px;background:var(--amber);opacity:0.55"></div> Tier 3 — Wearable / body data</div>
+      <div class="legend-row"><div class="l-dot" style="width:10px;height:10px;background:var(--muted);opacity:0.42"></div> Tier 4 — Enterprise / HR</div>
+      <div class="legend-row"><div class="l-dot" style="width:10px;height:10px;background:transparent;border:1.5px dashed rgba(154,136,120,0.3)"></div> Platform giants</div>
+      <div class="legend-row"><div class="l-dot" style="width:12px;height:12px;background:var(--terra)"></div> Clear Ahead</div>
+    </div>
+    <div class="l-div"></div>
+    <div class="legend-section">
+      <div class="legend-title">Dot size = funding / scale</div>
+      <div class="legend-row"><div class="l-dot" style="width:6px;height:6px;background:var(--muted)"></div> &lt; $5M</div>
+      <div class="legend-row"><div class="l-dot" style="width:9px;height:9px;background:var(--muted)"></div> $5–50M</div>
+      <div class="legend-row"><div class="l-dot" style="width:14px;height:14px;background:var(--muted)"></div> $50–500M</div>
+      <div class="legend-row"><div class="l-dot" style="width:19px;height:19px;background:var(--muted)"></div> $500M–$5B</div>
+      <div class="legend-row"><div class="l-dot" style="width:25px;height:25px;background:var(--muted)"></div> $5B+</div>
+    </div>
+    <div class="l-div"></div>
+    <div class="legend-section">
+      <div class="legend-title">Threat indicator</div>
+      <div class="threat-key">
+        <div class="threat-ring-demo"></div>
+        Ring = company has the data or velocity to close the gap. Hover for details.
+      </div>
+    </div>
+  </div>
+
+  <!-- Stat row -->
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="stat-n">30+</div>
+      <div class="stat-l">Companies mapped</div>
+      <div class="stat-d">Across scheduling, wearables, enterprise HR, and emerging neurotech.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n">6</div>
+      <div class="stat-l">Active threat vectors</div>
+      <div class="stat-d">Companies with real data, users, or velocity facing toward the gap.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n">4×</div>
+      <div class="stat-l">Acquisitions in the space</div>
+      <div class="stat-d">Reclaim → Dropbox. Cron → Notion. Fitbit → Google. Clockwise M&amp;A interest 2025.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n">0</div>
+      <div class="stat-l">That bridge both worlds</div>
+      <div class="stat-d">Nobody predicts cognitive capacity from calendar structure today.</div>
+    </div>
+  </div>
+
+  <!-- Threat analysis cards -->
+  <div class="threat-section">
+    <div class="threat-section-title">Threat analysis — companies that could close the gap and why</div>
+    <div class="threat-grid" id="threatGrid"></div>
+  </div>
+
+  <!-- Company links -->
+  <div class="links-section" id="linksSection"></div>
+
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+const companies = [
+  // PLATFORMS
+  { name:"Google Calendar + Gemini", tier:"platform", cat:"platform", threat:false, x:38, y:48, size:27,
+    stat:"~2B Google Workspace users", url:"https://calendar.google.com",
+    desc:"Owns your calendar data and is shipping Gemini AI into scheduling and smart replies. The largest single source of calendar data on earth.",
+    gapNote:null },
+
+  { name:"Apple Calendar + Health", tier:"platform", cat:"platform", threat:true, x:64, y:46, size:30,
+    stat:"~1.5B active devices · HRV, sleep, activity all tracked",  url:"https://www.apple.com/health",
+    desc:"Tracks sleep, HRV, heart rate AND has your calendar. Has literally all the data required to build your product.",
+    gapNote:"Has every signal needed — biometrics + calendar. Hasn't connected them. If it ever does, distribution is a billion devices overnight." },
+
+  { name:"Microsoft Viva + Copilot", tier:"platform", cat:"platform", threat:false, x:18, y:63, size:25,
+    stat:"~350M Office 365 users · Sells to HR", url:"https://www.microsoft.com/en-us/microsoft-viva",
+    desc:"Backward-looking workplace analytics. Copilot is now in calendar and Outlook. Customer is the employer, not the individual.",
+    gapNote:null },
+
+  // TIER 1
+  { name:"Oura", tier:"1", cat:"wearable", threat:true, x:76, y:14, size:24,
+    stat:"$1.32B raised · $5.2B valuation · ~$500M revenue 2024", url:"https://ouraring.com",
+    desc:"Already gives a predictive morning Readiness Score from sleep + HRV before the day starts. Body data only — no calendar context.",
+    gapNote:"Closest structural threat. One API integration away from reading your calendar and contextualising the readiness score. Hasn't done it because their thesis is 'know your body', not 'know your day'." },
+
+  { name:"Whoop", tier:"1", cat:"wearable", threat:true, x:82, y:20, size:22,
+    stat:"$454M raised · $3.6B valuation · ~$167M revenue", url:"https://www.whoop.com",
+    desc:"Daily recovery and readiness prediction from HRV + sleep. Forward-looking about body state, completely blind to calendar.",
+    gapNote:"Same structure as Oura — predictive body signal exists, calendar bridge is missing. Less likely than Oura because Whoop is more athlete-focused and slower to move into knowledge work." },
+
+  { name:"Garmin", tier:"1", cat:"wearable", threat:false, x:72, y:24, size:26,
+    stat:"Public · $40B market cap · $6.9B revenue", url:"https://www.garmin.com",
+    desc:"Body Battery score is the conceptual ancestor of your product — daily energy prediction from HRV + sleep. Designed for athletes, not knowledge workers.",
+    gapNote:null },
+
+  { name:"Motion", tier:"1", cat:"productivity", threat:true, x:22, y:22, size:20,
+    stat:"$102M raised · $550M valuation · 8-figure ARR · 3× YoY", url:"https://www.usemotion.com",
+    desc:"Fastest-moving AI productivity company. Agentic work suite with calendar, tasks, and AI employees. Currently focused on 'do the work for you' not 'understand your capacity'.",
+    gapNote:"Not currently moving in this direction — their bet is automation, not self-knowledge. But they have the calendar data, user trust, and engineering velocity. If their interviews surface capacity prediction as a top need, they could ship a version within months." },
+
+  { name:"Clockwise", tier:"1", cat:"productivity", threat:false, x:30, y:29, size:18,
+    stat:"$76M raised (Coatue, Atlassian, Bain) · $15M ARR · M&A interest 2025", url:"https://www.getclockwise.com",
+    desc:"Team-level calendar orchestration — runs 1M permutations to protect focus time across entire orgs. Org-level optimisation, not individual cognitive capacity.",
+    gapNote:null },
+
+  { name:"Reclaim.ai (Dropbox)", tier:"1", cat:"productivity", threat:false, x:20, y:35, size:17,
+    stat:"Acquired by Dropbox Aug 2024 · 18M Dropbox subscribers", url:"https://reclaim.ai",
+    desc:"Defends focus blocks and schedules habits. Dropbox acquisition gives massive distribution but product direction remains schedule optimisation, not capacity prediction.",
+    gapNote:null },
+
+  { name:"Calendly", tier:"1", cat:"productivity", threat:false, x:13, y:18, size:20,
+    stat:"$350M raised · $3B valuation", url:"https://calendly.com",
+    desc:"Dominates external meeting booking. Different problem entirely — coordination not capacity. No signal of moving into self-awareness territory.",
+    gapNote:null },
+
+  { name:"Notion Calendar", tier:"1", cat:"productivity", threat:false, x:36, y:36, size:18,
+    stat:"Acquired by Notion ($10B) · Free for all Notion users", url:"https://www.notion.so/product/calendar",
+    desc:"Notion bought Cron and made it free. Trojan horse distribution inside the most popular knowledge tool. Purely a calendar — no cognitive layer.",
+    gapNote:null },
+
+  // TIER 2
+  { name:"Sunsama", tier:"2", cat:"productivity", threat:false, x:34, y:44, size:10,
+    stat:"YC · Profitable · <10 employees", url:"https://www.sunsama.com",
+    desc:"Mindful daily planning ritual. Asks you to self-report capacity — which is what depleted people can't do accurately. Philosophically closest to your product.",
+    gapNote:null },
+
+  { name:"Morgen", tier:"2", cat:"productivity", threat:true, x:27, y:31, size:8,
+    stat:"$1M pre-seed · 'Energy-aware scheduling' framing", url:"https://www.morgen.so",
+    desc:"Uses 'energy-aware scheduling' and 'capacity-matching' language in their marketing. Small but philosophically closest to your positioning.",
+    gapNote:"Uses almost your exact language. Small team, limited resources, not an immediate threat — but they're narrating the same story. If they execute well or get acquired, they take the narrative first." },
+
+  { name:"BeforeSunset AI", tier:"2", cat:"productivity", threat:false, x:39, y:42, size:8,
+    stat:"Small startup · Freemium", url:"https://www.beforesunset.ai",
+    desc:"Daily planner structured around energy and focus zones. Self-reported — you define your energy, it doesn't predict it.",
+    gapNote:null },
+
+  { name:"Akiflow", tier:"2", cat:"productivity", threat:false, x:14, y:47, size:8,
+    stat:"~$2M raised · Bootstrapped", url:"https://akiflow.com",
+    desc:"Task consolidation from all tools into one command bar. Power-user focus. No cognitive awareness.",
+    gapNote:null },
+
+  { name:"Trevor AI", tier:"2", cat:"productivity", threat:false, x:17, y:52, size:7,
+    stat:"Bootstrapped · 10 years building", url:"https://www.trevorai.com",
+    desc:"Task-to-calendar scheduling with AI suggestions. Loyal niche. Not a threat.",
+    gapNote:null },
+
+  { name:"Amie", tier:"2", cat:"productivity", threat:false, x:37, y:51, size:8,
+    stat:"Small · Design-first", url:"https://amie.so",
+    desc:"Beautiful all-in-one calendar + tasks + email. Design-forward, ADHD-adjacent audience. Doesn't predict capacity.",
+    gapNote:null },
+
+  { name:"Fantastical", tier:"2", cat:"productivity", threat:false, x:24, y:57, size:9,
+    stat:"Bootstrapped · ~$5M+ ARR est.", url:"https://flexibits.com/fantastical",
+    desc:"Premium native calendar for Mac/iOS. Beloved by power users. No predictive layer — just great UX.",
+    gapNote:null },
+
+  { name:"Todoist", tier:"2", cat:"productivity", threat:false, x:11, y:54, size:10,
+    stat:"Profitable · ~4M users", url:"https://todoist.com",
+    desc:"Principled bootstrapped task manager. Large loyal base. No capacity reasoning.",
+    gapNote:null },
+
+  { name:"SkedPal", tier:"2", cat:"productivity", threat:false, x:23, y:44, size:7,
+    stat:"Niche · Small", url:"https://www.skedpal.com",
+    desc:"Priority-driven auto-scheduler. Older loyal niche. No body or capacity awareness.",
+    gapNote:null },
+
+  // TIER 3
+  { name:"Fitbit (Google)", tier:"3", cat:"wearable", threat:true, x:71, y:28, size:19,
+    stat:"Acquired by Google $2.1B · Daily Readiness Score for Premium", url:"https://www.fitbit.com",
+    desc:"Has a Daily Readiness Score for Premium subscribers. Now inside Google's ecosystem where Calendar data also lives.",
+    gapNote:"Google owns Fitbit's readiness data AND Google Calendar. The integration is technically trivial. The reason it hasn't happened is organisational — two different product teams with different priorities, not technical impossibility." },
+
+  { name:"Samsung Health", tier:"3", cat:"wearable", threat:false, x:67, y:52, size:21,
+    stat:"Samsung · Galaxy Ring launching", url:"https://www.samsung.com/us/mobile/galaxy-ring",
+    desc:"Massive Android install base. Galaxy Ring adding HRV and sleep tracking. No cognitive work context.",
+    gapNote:null },
+
+  { name:"Ultrahuman", tier:"3", cat:"wearable", threat:false, x:80, y:22, size:11,
+    stat:"~$35M raised · Fast-growing Oura competitor", url:"https://www.ultrahuman.com",
+    desc:"Metabolic + HRV ring, gaining US traction. Same positioning as Oura — body data, no work context.",
+    gapNote:null },
+
+  { name:"Polar", tier:"3", cat:"wearable", threat:false, x:70, y:40, size:13,
+    stat:"Finnish · Public · ~€200M revenue", url:"https://www.polar.com",
+    desc:"HRV and recovery science for athletes. Source of much of the physiological methodology in this space. No knowledge work context.",
+    gapNote:null },
+
+  { name:"Withings", tier:"3", cat:"wearable", threat:false, x:75, y:58, size:12,
+    stat:"~$200M raised · French company", url:"https://www.withings.com",
+    desc:"Connected health devices. Health monitoring platform. No productivity bridge.",
+    gapNote:null },
+
+  // TIER 4
+  { name:"Microsoft Viva Insights", tier:"4", cat:"enterprise", threat:false, x:22, y:73, size:20,
+    stat:"Bundled into M365 · Sells to HR", url:"https://www.microsoft.com/en-us/microsoft-viva/insights",
+    desc:"Backward-looking meeting analytics for HR. Your boss sees your data, not you. Different customer entirely.",
+    gapNote:null },
+
+  { name:"Lattice", tier:"4", cat:"enterprise", threat:false, x:14, y:69, size:15,
+    stat:"$246M raised · $3B valuation", url:"https://lattice.com",
+    desc:"Performance management platform. HR layer. Not real-time cognitive capacity.",
+    gapNote:null },
+
+  { name:"15Five", tier:"4", cat:"enterprise", threat:false, x:10, y:75, size:12,
+    stat:"$52M raised", url:"https://www.15five.com",
+    desc:"Weekly performance check-ins. HR system. Not personal or real-time.",
+    gapNote:null },
+
+  { name:"Humanyze", tier:"4", cat:"enterprise", threat:false, x:19, y:79, size:9,
+    stat:"~$20M raised", url:"https://www.humanyze.com",
+    desc:"Workplace sensor + communication analytics. Surveillance angle. Sells to companies, not individuals.",
+    gapNote:null },
+
+  { name:"Worklytics", tier:"4", cat:"enterprise", threat:false, x:29, y:76, size:7,
+    stat:"~$5M raised", url:"https://www.worklytics.co",
+    desc:"Engineering team output metrics. Not personal capacity.",
+    gapNote:null },
+
+  // TIER 5
+  { name:"Neurable", tier:"5", cat:"emerging", threat:false, x:62, y:18, size:9,
+    stat:"EEG headphones · Real-time focus state", url:"https://neurable.com",
+    desc:"Focus-tracking headphones using EEG. Real-time brain state monitoring. More invasive, same thesis.",
+    gapNote:null },
+
+  { name:"Neurosity", tier:"5", cat:"emerging", threat:false, x:68, y:14, size:7,
+    stat:"Tiny · Developer EEG headset", url:"https://neurosity.co",
+    desc:"Developer brain-computer interface. Live focus state monitoring. Very niche, very early.",
+    gapNote:null },
+
+  { name:"Focusmate", tier:"5", cat:"emerging", threat:false, x:40, y:33, size:8,
+    stat:"Small · Body-doubling", url:"https://www.focusmate.com",
+    desc:"Virtual co-working for accountability. Proves people want external cognitive scaffolding. Different mechanism, same pain.",
+    gapNote:null },
+
+  { name:"Daylio / Bearable", tier:"5", cat:"emerging", threat:false, x:73, y:67, size:7,
+    stat:"Consumer mood tracking apps", url:"https://daylio.net",
+    desc:"Self-reported mood and energy journaling. Proves the behavior — people want to understand their state. Low-tech, not predictive.",
+    gapNote:null },
+
+  // CLEAR AHEAD
+  { name:"Clear Ahead", tier:"yours", cat:"yours", threat:false, x:50, y:11, size:16,
+    stat:"First mover · Unvalidated PMF · Active discovery", url:"https://clearaheadlabs.com",
+    desc:"Forward-looking cognitive capacity prediction from calendar structure — the gap nobody currently occupies. First mover, but the moat is execution speed not idea protection.",
+    gapNote:null }
+];
+
+// ── BUILD MATRIX DOTS ──
+const matrix = document.getElementById('matrix');
+const tooltip = document.getElementById('tooltip');
+
+companies.forEach(co => {
+  const dot = document.createElement('div');
+  dot.className = 'dot' + (co.tier === 'yours' ? ' yours' : '') + (co.threat ? ' threat' : '');
+  dot.dataset.tier = co.tier;
+  dot.dataset.cat = co.cat;
+  dot.dataset.threat = co.threat ? 'true' : 'false';
+  dot.style.left = co.x + '%';
+  dot.style.top = co.y + '%';
+
+  const core = document.createElement('div');
+  core.className = 'dot-core';
+  core.style.width = co.size + 'px';
+  core.style.height = co.size + 'px';
+  core.style.marginLeft = (-co.size / 2) + 'px';
+  core.style.marginTop = (-co.size / 2) + 'px';
+  dot.appendChild(core);
+
+  const label = document.createElement('div');
+  label.className = 'dot-label';
+  const isRight = co.x > 66;
+  const isYours = co.tier === 'yours';
+  if (isRight) {
+    label.style.right = (co.size / 2 + 5) + 'px';
+    label.style.top = '50%';
+    label.style.transform = 'translateY(-50%)';
+    label.style.textAlign = 'right';
+  } else if (isYours) {
+    label.style.bottom = (co.size / 2 + 5) + 'px';
+    label.style.left = '50%';
+    label.style.transform = 'translateX(-50%)';
+    label.style.textAlign = 'center';
+  } else {
+    label.style.left = (co.size / 2 + 5) + 'px';
+    label.style.top = '50%';
+    label.style.transform = 'translateY(-50%)';
+  }
+  label.textContent = co.name;
+  dot.appendChild(label);
+
+  dot.addEventListener('mouseenter', () => {
+    let html = `<div class="tt-name">${co.name}</div>${co.desc}`;
+    if (co.gapNote) html += `<div class="tt-gap">⚠ ${co.gapNote}</div>`;
+    html += `<div class="tt-stat">${co.stat}</div>`;
+    tooltip.innerHTML = html;
+    tooltip.classList.add('show');
+  });
+  dot.addEventListener('mousemove', e => {
+    let x = e.clientX + 16, y = e.clientY - 10;
+    if (x + 270 > window.innerWidth) x = e.clientX - 270;
+    if (y + 160 > window.innerHeight) y = e.clientY - 160;
+    tooltip.style.left = x + 'px';
+    tooltip.style.top = y + 'px';
+  });
+  dot.addEventListener('mouseleave', () => tooltip.classList.remove('show'));
+
+  matrix.appendChild(dot);
+});
+
+// ── FILTER ──
+const catMap = {
+  all: () => true,
+  productivity: d => ['productivity','yours'].includes(d.dataset.cat),
+  wearable: d => ['wearable','yours'].includes(d.dataset.cat),
+  enterprise: d => ['enterprise','yours'].includes(d.dataset.cat),
+  platform: d => ['platform','yours'].includes(d.dataset.cat),
+  threat: d => d.dataset.threat === 'true' || d.dataset.tier === 'yours',
+};
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.dot').forEach(d => {
+      catMap[f](d) ? d.classList.remove('hidden') : d.classList.add('hidden');
+    });
+  });
+});
+
+// ── THREAT CARDS ──
+const threats = [
+  {
+    name: "Oura",
+    level: "high",
+    gapDistance: "One calendar API integration. They already predict your morning readiness from HRV and sleep — a number delivered before your day starts. Adding 'and your calendar shows 6 hours of meetings' is trivial engineering.",
+    signals: "No public signal they're moving this way. Their brand thesis is 'listen to your body', not 'understand your workday'. An Oura + calendar integration has been requested by users in their community forums for years with no response.",
+    verdict: "They could do it anytime. They probably won't — their identity is wellness, not productivity. But if they decide to expand TAM, this is the obvious move."
+  },
+  {
+    name: "Motion",
+    level: "high",
+    gapDistance: "Has your users' complete calendar data and is growing 3× year-on-year. Their current direction is agentic automation — AI that does work for you. Your direction is self-knowledge — AI that tells you about yourself. These are different bets.",
+    signals: "No signal of pivoting toward capacity prediction. Customer interviews show users want automation, not introspection. Their Sept 2025 announcement is about AI Employees doing work, not about predicting cognitive state.",
+    verdict: "Long-term structural risk, not immediate. If their automation thesis plateaus and they need new growth vectors, this is adjacent. Your window is 12–24 months before they'd plausibly look this way."
+  },
+  {
+    name: "Apple (Health + Calendar)",
+    level: "high",
+    gapDistance: "Apple already has every signal needed: your sleep quality from Apple Watch, your HRV, your calendar from Apple Calendar. The product would be a feature in iOS, not a startup. The gap is not technical — it's that Apple builds horizontally and your product requires deep vertical focus.",
+    signals: "Apple has shown no interest in prescriptive daily briefings. Their Health app philosophy is 'give you data, let you decide'. A morning cognitive forecast contradicts that ethos.",
+    verdict: "Would be existential if shipped. Most likely it never is — Apple doesn't build opinionated daily briefings. But it's the correct answer to 'what's the nuclear scenario'."
+  },
+  {
+    name: "Fitbit (Google)",
+    level: "medium",
+    gapDistance: "Google owns Fitbit's readiness data AND Google Calendar. An integration is an organisational decision, not a technical one. Different product teams currently, but Google has consolidated products before.",
+    signals: "Fitbit is a declining brand inside Google. Pixel Watch is the focus. There are no signals of a Fitbit + Calendar integration roadmap. More likely Google's effort goes into Gemini + Calendar, not Fitbit.",
+    verdict: "Theoretically simple, practically unlikely in the near term. Worth watching if Google makes a 'health + productivity' product push."
+  },
+  {
+    name: "Morgen",
+    level: "medium",
+    gapDistance: "Already uses 'energy-aware' and 'capacity-matching' language in their positioning. Small team, $1M raised, but they're narrating the same story you're building toward.",
+    signals: "Their 2024 strategy document announced 'less hustle, more focus' — a deliberate slowdown. They do not appear to be building a predictive capacity model, more of a smart scheduling assistant. Language is similar, product direction diverges.",
+    verdict: "Narrative risk more than product risk. If they get acquired by a larger player, the acquirer inherits the positioning. Monitor their product releases closely."
+  },
+  {
+    name: "Whoop",
+    level: "low",
+    gapDistance: "Has the predictive readiness signal from biometrics. Doesn't have calendar data and is firmly positioned as an athletic performance tool.",
+    signals: "Whoop's B2B push (Whoop Unite) is into corporate wellness for HR teams, not individual knowledge workers. Their product design language — strain, recovery, sleep — is athlete-coded. Moving into calendar-aware cognition would require a brand repositioning.",
+    verdict: "Unlikely to move here without a major strategic shift. Lower threat than Oura because their identity is more narrowly athletic."
+  }
+];
+
+const threatLevelOrder = { high: 0, medium: 1, low: 2 };
+const sortedThreats = [...threats].sort((a,b) => threatLevelOrder[a.level] - threatLevelOrder[b.level]);
+
+const grid = document.getElementById('threatGrid');
+sortedThreats.forEach(t => {
+  grid.innerHTML += `
+    <div class="threat-card ${t.level}">
+      <div class="tc-header">
+        <div class="tc-name">${t.name}</div>
+        <div class="tc-level">${t.level === 'high' ? 'High threat' : t.level === 'medium' ? 'Medium threat' : 'Low threat'}</div>
+      </div>
+      <div class="tc-gap-distance">${t.gapDistance}</div>
+      <div class="tc-signals">
+        <strong>Signals &amp; evidence</strong>
+        ${t.signals}
+      </div>
+      <div class="tc-verdict">${t.verdict}</div>
+    </div>`;
+});
+
+// ── COMPANY LINKS ──
+const linkGroups = [
+  {
+    label: "Your product",
+    companies: companies.filter(c => c.tier === 'yours')
+  },
+  {
+    label: "Tier 1 — Well-funded adjacents",
+    companies: companies.filter(c => c.tier === '1')
+  },
+  {
+    label: "Tier 2 — Same user, smaller scale",
+    companies: companies.filter(c => c.tier === '2')
+  },
+  {
+    label: "Tier 3 — Wearable & body data",
+    companies: companies.filter(c => c.tier === '3')
+  },
+  {
+    label: "Tier 4 — Enterprise & HR",
+    companies: companies.filter(c => c.tier === '4')
+  },
+  {
+    label: "Platform giants",
+    companies: companies.filter(c => c.tier === 'platform')
+  },
+  {
+    label: "Emerging & conceptual",
+    companies: companies.filter(c => c.tier === '5')
+  }
+];
+
+const linksSection = document.getElementById('linksSection');
+linksSection.innerHTML = `<div class="links-title">All companies — direct links</div>`;
+
+linkGroups.forEach(group => {
+  const groupEl = document.createElement('div');
+  groupEl.className = 'links-group';
+  groupEl.innerHTML = `<div class="links-group-label">${group.label}</div>`;
+  const grid = document.createElement('div');
+  grid.className = 'links-grid';
+  group.companies.forEach(co => {
+    const cls = co.tier === 'yours' ? 'company-link yours-co' : co.threat ? 'company-link threat-co' : 'company-link';
+    grid.innerHTML += `<a href="${co.url}" target="_blank" rel="noopener" class="${cls}">${co.name}<span class="link-arrow">↗</span></a>`;
+  });
+  groupEl.appendChild(grid);
+  linksSection.appendChild(groupEl);
+});
+</script>
+</body>
+</html>
